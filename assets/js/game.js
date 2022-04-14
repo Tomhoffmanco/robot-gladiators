@@ -1,11 +1,17 @@
-var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 100;
-var playerAttack = 10;
-var playerMoney = 10;
+// var playerName = window.prompt("What is your robot's name?");
+// var playerHealth = 100;
+// var playerAttack = 10;
+// var playerMoney = 10;
 
-var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 50;
-var enemyAttack = 12;
+// var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
+// var enemyHealth = 50;
+// var enemyAttack = 12;
+
+var randomNumber = function (min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
+};
 
 // console.log(enemyNames);
 // console.log(enemyNames.length);
@@ -37,9 +43,12 @@ var fight = function (enemyName) {
       }
     }
 
+    // generate random damage value based on player's attack power
+    var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+
     // remove enemy's health by subtracting the amount set in the playerAttack variable
 
-    enemyHealth = enemyHealth - playerAttack;
+    enemyHealth = Math.max(0, enemyHealth - playerAttack);
     console.log(
       playerName +
         " attacked " +
@@ -58,8 +67,7 @@ var fight = function (enemyName) {
 
       // award player money for winning
 
-      playerMoney = playerMoney + 20;
-
+      playerMoney = Math.max(0, playerMoney - 10);
       // leave while() loop since enemy is dead
 
       break;
@@ -67,9 +75,12 @@ var fight = function (enemyName) {
       window.alert(enemyName + " still has " + enemyHealth + " health left.");
     }
 
+    // remove players's health by subtracting the amount set in the enemy.attack variable
+    var damage = randomNumber(enemy.attack - 3, enemy.attack);
+
     // remove players's health by subtracting the amount set in the enemyAttack variable
 
-    playerHealth = playerHealth - enemyAttack;
+    playerHealth = Math.max(0, playerHealth - enemyAttack);
     console.log(
       enemyName +
         " attacked " +
@@ -109,7 +120,7 @@ var startGame = function () {
 
       var pickedEnemyName = enemyNames[i];
 
-      enemyHealth = 50;
+      enemyHealth = Math.floor(Math.random() * 60);
 
       fight(pickedEnemyName);
 
